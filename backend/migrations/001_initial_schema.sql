@@ -85,19 +85,29 @@ ALTER TABLE public.action_items   ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.call_schedules ENABLE ROW LEVEL SECURITY;
 
 -- users
+DROP POLICY IF EXISTS "users: 본인만 조회"    ON public.users;
+DROP POLICY IF EXISTS "users: 본인만 수정"    ON public.users;
+DROP POLICY IF EXISTS "users: 온보딩 시 삽입" ON public.users;
 CREATE POLICY "users: 본인만 조회"   ON public.users FOR SELECT USING (auth.uid() = id);
 CREATE POLICY "users: 본인만 수정"   ON public.users FOR UPDATE USING (auth.uid() = id);
 CREATE POLICY "users: 온보딩 시 삽입" ON public.users FOR INSERT WITH CHECK (auth.uid() = id);
 
 -- conversations
+DROP POLICY IF EXISTS "conversations: 본인만 조회" ON public.conversations;
+DROP POLICY IF EXISTS "conversations: 본인만 삽입" ON public.conversations;
+DROP POLICY IF EXISTS "conversations: 본인만 수정" ON public.conversations;
 CREATE POLICY "conversations: 본인만 조회" ON public.conversations FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "conversations: 본인만 삽입" ON public.conversations FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "conversations: 본인만 수정" ON public.conversations FOR UPDATE USING (auth.uid() = user_id);
 
 -- action_items
+DROP POLICY IF EXISTS "action_items: 본인만 조회" ON public.action_items;
+DROP POLICY IF EXISTS "action_items: 본인만 삽입" ON public.action_items;
+DROP POLICY IF EXISTS "action_items: 본인만 수정" ON public.action_items;
 CREATE POLICY "action_items: 본인만 조회" ON public.action_items FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "action_items: 본인만 삽입" ON public.action_items FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "action_items: 본인만 수정" ON public.action_items FOR UPDATE USING (auth.uid() = user_id);
 
 -- call_schedules
+DROP POLICY IF EXISTS "call_schedules: 본인만 조회" ON public.call_schedules;
 CREATE POLICY "call_schedules: 본인만 조회" ON public.call_schedules FOR SELECT USING (auth.uid() = user_id);
