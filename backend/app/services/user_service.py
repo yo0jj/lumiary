@@ -43,8 +43,11 @@ def onboard_user(db: Client, user_id: str, req: OnboardRequest) -> OnboardRespon
 
 
 def get_user(db: Client, user_id: str) -> UserResponse:
-    result = db.table("users").select("*").eq("id", user_id).single().execute()
-    user = result.data
+    result = db.table("users").select("*").eq("id", user_id).maybe_single().execute()
+    user = (result.data if result else None)
+    if not user:
+        raise Exception("User not found")
+
 
     total = (
         db.table("conversations")

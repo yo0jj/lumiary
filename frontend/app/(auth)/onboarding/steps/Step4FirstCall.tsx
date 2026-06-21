@@ -42,8 +42,8 @@ export default function Step4FirstCall({ data, onBack }: Props) {
 
       if (!res.ok) throw new Error("onboard failed");
 
-      // Phase 2 전까지는 바로 홈으로 이동
-      router.push("/home");
+      // 온보딩 완료 → 첫 통화 시작
+      router.push("/overlay");
     } catch {
       setError("시작에 실패했어요. 다시 시도해주세요.");
       setLoading(false);

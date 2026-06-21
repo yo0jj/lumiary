@@ -5,3 +5,10 @@ pydantic-settings==2.5.2
 python-jose[cryptography]==3.3.0
 httpx==0.27.2
 python-dotenv==1.0.1
+# Phase 2: Voice Engine
+google-genai>=1.0.0
+google-cloud-texttospeech>=2.0.0
+# Phase 3+: Redis · Notifications · Scheduler
+upstash-redis>=1.0.0
+firebase-admin>=6.0.0
+apscheduler>=3.10.0
