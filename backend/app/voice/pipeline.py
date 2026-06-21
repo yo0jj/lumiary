@@ -31,7 +31,11 @@ class OptionAPipeline(VoiceEngine):
 
     def __init__(self, context: dict = None) -> None:
         self._context = context or {}
-        self._client = genai.Client(api_key=settings.gemini_api_key)
+        self._client = genai.Client(
+            vertexai=True,
+            project=settings.google_cloud_project,
+            location=settings.google_cloud_location,
+        )
         self._tts_client = texttospeech.TextToSpeechAsyncClient()
         self._chat: Optional[genai.types.AsyncChat] = None
         voice_tone = self._context.get("voice_tone", "warm")
@@ -42,7 +46,7 @@ class OptionAPipeline(VoiceEngine):
     async def transcribe(self, audio_bytes: bytes) -> str:
         audio_part = types.Part.from_bytes(data=audio_bytes, mime_type="audio/webm")
         response = await self._client.aio.models.generate_content(
-            model="gemini-3-flash-preview",
+            model="gemini-3.5-flash",
             contents=[audio_part, _STT_PROMPT],
         )
         return (response.text or "").strip()

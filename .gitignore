@@ -3,6 +3,10 @@
 .env.local
 .env.*.local
 
+# Google Cloud service account keys
+*-service.json
+tts-service.json
+
 # Python
 __pycache__/
 *.py[cod]

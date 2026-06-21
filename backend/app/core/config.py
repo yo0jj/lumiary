@@ -10,8 +10,11 @@ class Settings(BaseSettings):
 
     supabase_url: str
     supabase_service_role_key: str
-    gemini_api_key: str = ""
     cors_origins: list[str] = ["http://localhost:3000"]
+
+    # Vertex AI (Google Cloud 크레딧 차감)
+    google_cloud_project: str = "gen-lang-client-0349736732"
+    google_cloud_location: str = "global"
 
     # Phase 2+ — 선택적 설정 (미설정 시 기능 비활성화)
     upstash_redis_url: str = ""
